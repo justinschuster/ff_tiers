@@ -19,10 +19,10 @@ class TestClass(unittest.TestCase):
         self.capfd = capfd
         
     def test_url_arg(self):
-        os.system("python3 ~/ff_tiers/src/ff_dl.py -u www.test.com")
+        os.system("python3 ~/ff_tiers/src/ff_dl.py -u www.test.com -f ~/ff_tiers/data/rankings.xls")
         captured = self.capfd.readouterr()
-        #self.assertEqual('www.test.com\n', captured.out)
-        assert captured.out == "www.test.com\n"
+        self.assertEqual('www.test.com\n~/ff_tiers/data/rankings.xls\n', captured.out)
+        
         
 
 if __name__ == "__main__":
