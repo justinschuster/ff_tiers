@@ -1,3 +1,4 @@
-src/ff_tiers
+ff_tiers
 src/__pycache__
 src/tests/__pycache__
+data
