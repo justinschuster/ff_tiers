@@ -1,7 +1,14 @@
 import sys
 import argparse
 import requests
+import csv
 from bs4 import BeautifulSoup
+
+def create_csv_file(player_info):
+    with open('/home/justin/ff_tiers/data/rankings.csv', 'w', newline='') as csv_file:
+        wr = csv.writer(csv_file, quoting=csv.QUOTE_ALL)
+        for player in player_info:
+            wr.writerow(player)
 
 def get_player_data(file_name):
     players = []
@@ -35,6 +42,7 @@ def get_player_data(file_name):
             print("No .vs ADP found for " + str(player_data[1]))
             player_data.append('')
         players.append(player_data)
+    return players
     
 def download_rankings(url, file_name, user_info):
     resp = requests.get(url, auth=(user_info['username'], user_info['password']))
@@ -57,8 +65,8 @@ def main():
     #file_name = '~/ff_tiers/data/rankings.html'
     user_info = {'username':'schujustin', 'password':'justin1', 'token':'1'}
     download_rankings(ffp_url, file_name, user_info)
-    get_player_data(file_name)
-
+    player_info = get_player_data(file_name)
+    create_csv_file(player_info)
 
 if __name__ == "__main__":
     main()
