@@ -1,13 +1,41 @@
-"""
-Written by Justin Schuster
-This file downloads the consensus rankings from 
-the Fantasy Football Pros website.
-Heavily influenced by borischen.co's ff_dl.py file. 
-"""
 import sys
 import argparse
 import requests
+from bs4 import BeautifulSoup
 
+def get_player_data(file_name):
+    players = []
+    with open(file_name) as fp:
+        soup = BeautifulSoup(fp, "lxml")
+    for player in soup.find_all("tr", class_="player-row"):
+        player_data = []
+        player_td_elements = player.find_all("td")
+        player_data.append(player_td_elements[0].contents[0]) # append index
+        info = player_td_elements[1].find("input", class_="wsis").attrs
+        player_data.append(info['data-name']) # append player name
+        player_data.append(info['data-team']) # append abbreviated team name  
+        player_data.append(info['data-position']) # append player position
+        try: # append bye week
+            player_data.append(player_td_elements[4].contents[0])
+        except:
+            print("No BYE week found for " + str(player_data[1]))
+            player_data.append('')
+        player_data.append(player_td_elements[5].contents[0]) # append best rank
+        player_data.append(player_td_elements[6].contents[0]) # append worst rank
+        player_data.append(player_td_elements[7].contents[0]) # append avg rank
+        player_data.append(player_td_elements[8].contents[0]) # append std of ranks 
+        try: # append ADP
+            player_data.append(player_td_elements[9].contents[0])
+        except:
+            print("No ADP found for " + str(player_data[1]))
+            player_data.append('')
+        try: # append .vs ADP 
+            player_data.append(player_td_elements[10].contents[0])
+        except:
+            print("No .vs ADP found for " + str(player_data[1]))
+            player_data.append('')
+        players.append(player_data)
+    
 def download_rankings(url, file_name, user_info):
     resp = requests.get(url, auth=(user_info['username'], user_info['password']))
     output = open(file_name, 'wb')
@@ -26,9 +54,10 @@ def get_url():
 def main():
     ffp_url, file_name = get_url()
     #ffp_url = 'https://www.fantasypros.com/nfl/rankings/consensus-cheatsheets.php?export=xls'
-    #file_name = '~/ff_tiers/data/rankings.xls'
+    #file_name = '~/ff_tiers/data/rankings.html'
     user_info = {'username':'schujustin', 'password':'justin1', 'token':'1'}
     download_rankings(ffp_url, file_name, user_info)
+    get_player_data(file_name)
 
 
 if __name__ == "__main__":
