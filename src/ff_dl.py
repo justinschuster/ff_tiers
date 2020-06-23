@@ -13,7 +13,7 @@ def create_csv_file(player_info):
 
 def get_player_data(file_name):
     players = []
-    column_headings = ['consensus_ranking', 'player_name', 'position', 'team_abbrev_name', 'bye_week', 'best_ranking', 'worst_ranking',
+    column_headings = ['consensus_ranking', 'player_name', 'team_name_abbrev', 'position', 'bye_week', 'best_ranking', 'worst_ranking',
                         'average_ranking', 'ranking_std', 'ADP', 'vs ADP']
     players.append(column_headings)
 
