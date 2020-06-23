@@ -13,6 +13,10 @@ def create_csv_file(player_info):
 
 def get_player_data(file_name):
     players = []
+    column_headings = ['consensus_ranking', 'player_name', 'position', 'team_abbrev_name', 'bye_week', 'best_ranking', 'worst_ranking',
+                        'average_ranking', 'ranking_std', 'ADP', 'vs ADP']
+    players.append(column_headings)
+
     with open(file_name) as fp:
         soup = BeautifulSoup(fp, "lxml")
     for player in soup.find_all("tr", class_="player-row"):
@@ -43,7 +47,7 @@ def get_player_data(file_name):
             player_data.append(player_td_elements[10].contents[0])
         except:
             player_data.append('')
-            
+
         players.append(player_data)
     return players
     

@@ -21,7 +21,7 @@ class TestClass(unittest.TestCase):
 
     def test_get_player_data(self):
         file = '/home/justin/ff_tiers/data/consensus-cheatsheet.html'
-        self.assertEqual(478, len(ff_dl.get_player_data(file)))
+        self.assertEqual(484, len(ff_dl.get_player_data(file)))
 
 if __name__ == "__main__":
         unittest.main()
