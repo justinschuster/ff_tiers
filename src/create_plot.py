@@ -3,11 +3,20 @@ import numpy as np
 import matplotlib as plt
 
 from sklearn.preprocessing import OrdinalEncoder
+from sklearn.cluster import KMeans
+
+def clustering(data, k):
+    categories = ['position', 'best_ranking', 'worst_ranking', 'ranking_std']
+    data = data[categories]
+    kmeans = KMeans(n_clusters=k)
+    y_pred = kmeans.fit_predict(data)
+    return y_pred
 
 def handle_missing_values(data):
     data['bye_week'].fillna(method='ffill')
     data['vs ADP'].fillna(method='ffill')
     data['ADP'].fillna(method='ffill', inplace=True)
+    return data
 
 def handle_categorical_features(data):
     position_cat = data[['position']]
@@ -26,3 +35,4 @@ if __name__ == '__main__':
     X = data.drop(['average_ranking'], axis=1)
     X = handle_categorical_features(X)
     X = handle_missing_values(X)
+    X['cluster'] = clustering(X, 20)
