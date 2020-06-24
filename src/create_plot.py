@@ -1,9 +1,33 @@
 import pandas as pd
 import numpy as np
-import matplotlib as plt
+import matplotlib.pyplot as plt
+import matplotlib.cm
 
 from sklearn.preprocessing import OrdinalEncoder
 from sklearn.cluster import KMeans
+
+def plot_cluster(data, colors, labels):
+    fig, ax = plt.subplots(figsize=(15,15))
+    plt.ylabel('Consensus Rank')
+    plt.xlabel('Average Rank')
+
+    for cluster_num in range(0, len(labels)):
+        curr_cluster = data.loc[data['cluster'] == labels[cluster_num]]
+        plt.scatter(curr_cluster['average_ranking'], curr_cluster['consensus_ranking'], c=colors[cluster_num])
+        plt.errorbar(curr_cluster['average_ranking'], curr_cluster['consensus_ranking'], xerr=curr_cluster['ranking_std'], linestyle='None', ecolor=colors[cluster_num])
+
+    for i, txt in enumerate(data['player_name']):
+        ax.annotate(txt, xy=(data['average_ranking'][i], data['consensus_ranking'][i]), xytext=(4,6), textcoords="offset points")
+        
+    plt.grid()
+    plt.show()
+
+def get_colors(data):
+    colors = []
+    color_iter = iter(plt.cm.rainbow(np.linspace(0, 5, len(data['cluster'].unique()))))
+    for clust in data['cluster'].unique():
+        colors.append(next(color_iter))
+    return colors
 
 def clustering(data, k):
     categories = ['position', 'best_ranking', 'worst_ranking', 'ranking_std']
@@ -31,8 +55,10 @@ def get_data():
 
 if __name__ == '__main__':
     data = get_data()
-    y = data['average_ranking']
-    X = data.drop(['average_ranking'], axis=1)
-    X = handle_categorical_features(X)
-    X = handle_missing_values(X)
-    X['cluster'] = clustering(X, 20)
+    data = data[:50]
+    data = handle_categorical_features(data)
+    data = handle_missing_values(data)
+    data['cluster'] = clustering(data, 7)
+    colors = get_colors(data)
+    labels = data['cluster'].unique()
+    plot_cluster(data, colors, labels)
