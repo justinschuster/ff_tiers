@@ -30,7 +30,7 @@ def get_colors(data):
     return colors
 
 def clustering(data, k):
-    categories = ['position', 'best_ranking', 'worst_ranking', 'ranking_std']
+    categories = ['position', 'best_ranking', 'worst_ranking', 'ranking_std', 'average_ranking']
     data = data[categories]
     kmeans = KMeans(n_clusters=k)
     y_pred = kmeans.fit_predict(data)
@@ -58,7 +58,7 @@ if __name__ == '__main__':
     data = data[:50]
     data = handle_categorical_features(data)
     data = handle_missing_values(data)
-    data['cluster'] = clustering(data, 7)
+    data['cluster'] = clustering(data, 20)
     colors = get_colors(data)
     labels = data['cluster'].unique()
     plot_cluster(data, colors, labels)
