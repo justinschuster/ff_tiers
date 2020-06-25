@@ -1,20 +1,23 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib.cm
+import matplotlib.cm as cm
 
 from sklearn.preprocessing import OrdinalEncoder
 from sklearn.cluster import KMeans
+from matplotlib.colors import rgb2hex
 
-def plot_cluster(data, colors, labels):
+def plot_cluster(data, labels):
     fig, ax = plt.subplots(figsize=(15,15))
     plt.ylabel('Consensus Rank')
     plt.xlabel('Average Rank')
 
-    for cluster_num in range(0, len(labels)):
+    colors = cm.rainbow(np.linspace(0,1, len(labels)))
+    for cluster_num in range(len(labels)):
+        c = colors[cluster_num][:-1]
         curr_cluster = data.loc[data['cluster'] == labels[cluster_num]]
-        plt.scatter(curr_cluster['average_ranking'], curr_cluster['consensus_ranking'], c=colors[cluster_num])
-        plt.errorbar(curr_cluster['average_ranking'], curr_cluster['consensus_ranking'], xerr=curr_cluster['ranking_std'], linestyle='None', ecolor=colors[cluster_num])
+        plt.scatter(curr_cluster['average_ranking'], curr_cluster['consensus_ranking'], color=rgb2hex(c))
+        plt.errorbar(curr_cluster['average_ranking'], curr_cluster['consensus_ranking'], xerr=curr_cluster['ranking_std'], linestyle='None', ecolor=rgb2hex(c))
 
     for i, txt in enumerate(data['player_name']):
         ax.annotate(txt, xy=(data['average_ranking'][i], data['consensus_ranking'][i]), xytext=(4,6), textcoords="offset points")
@@ -22,15 +25,8 @@ def plot_cluster(data, colors, labels):
     plt.grid()
     plt.show()
 
-def get_colors(data):
-    colors = []
-    color_iter = iter(plt.cm.rainbow(np.linspace(0, 5, len(data['cluster'].unique()))))
-    for clust in data['cluster'].unique():
-        colors.append(next(color_iter))
-    return colors
-
 def clustering(data, k):
-    categories = ['position', 'best_ranking', 'worst_ranking', 'ranking_std', 'average_ranking']
+    categories = ['best_ranking', 'worst_ranking', 'average_ranking']
     data = data[categories]
     kmeans = KMeans(n_clusters=k)
     y_pred = kmeans.fit_predict(data)
@@ -55,10 +51,9 @@ def get_data():
 
 if __name__ == '__main__':
     data = get_data()
-    data = data[:50]
+    data = data[:100]
     data = handle_categorical_features(data)
     data = handle_missing_values(data)
-    data['cluster'] = clustering(data, 20)
-    colors = get_colors(data)
+    data['cluster'] = clustering(data, 10)
     labels = data['cluster'].unique()
-    plot_cluster(data, colors, labels)
+    plot_cluster(data, labels)
