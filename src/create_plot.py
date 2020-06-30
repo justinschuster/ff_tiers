@@ -20,8 +20,8 @@ def plot_cluster(data, labels):
     for cluster_num in range(len(labels)):
         c = colors[cluster_num][:-1]
         curr_cluster = data.loc[data['cluster'] == labels[cluster_num]]
-        plt.scatter(curr_cluster['average_ranking'], curr_cluster['consensus_ranking'], color=rgb2hex(c))
-        plt.errorbar(curr_cluster['average_ranking'], curr_cluster['consensus_ranking'], xerr=curr_cluster['ranking_std'], linestyle='None', ecolor=rgb2hex(c))
+        plt.errorbar(curr_cluster['average_ranking'], curr_cluster['consensus_ranking'], xerr=curr_cluster['ranking_std'], zorder=2,linestyle='None', ecolor=rgb2hex(c))
+        plt.scatter(curr_cluster['average_ranking'], curr_cluster['consensus_ranking'], color='black', zorder=2)
 
     for i, txt in enumerate(data['player_name']):
         ax.annotate(txt, xy=(data['average_ranking'][i], data['consensus_ranking'][i]), xytext=(4,6), textcoords="offset points")
@@ -58,6 +58,6 @@ if __name__ == '__main__':
     data = data[:30]
     data = handle_categorical_features(data)
     data = handle_missing_values(data)
-    data['cluster'] = clustering(data, 10)
+    data['cluster'] = clustering(data, 5)
     labels = data['cluster'].unique()
     plot_cluster(data, labels)
