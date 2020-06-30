@@ -6,11 +6,15 @@ import matplotlib.cm as cm
 from sklearn.preprocessing import OrdinalEncoder
 from sklearn.cluster import KMeans
 from matplotlib.colors import rgb2hex
+from matplotlib import style 
 
 def plot_cluster(data, labels):
-    fig, ax = plt.subplots(figsize=(15,15))
+    style.use('ggplot')
+    fig, ax = plt.subplots(figsize=(15,25))
     plt.ylabel('Consensus Rank')
     plt.xlabel('Average Rank')
+    plt.title('Pre-Draft - Overall Tiers')
+    plt.gca().invert_yaxis()
 
     colors = cm.rainbow(np.linspace(0,1, len(labels)))
     for cluster_num in range(len(labels)):
@@ -21,8 +25,8 @@ def plot_cluster(data, labels):
 
     for i, txt in enumerate(data['player_name']):
         ax.annotate(txt, xy=(data['average_ranking'][i], data['consensus_ranking'][i]), xytext=(4,6), textcoords="offset points")
-        
-    plt.grid()
+
+    ax.grid(b=True, which='major', color='white', linestyle='-')
     plt.show()
 
 def clustering(data, k):
@@ -51,7 +55,7 @@ def get_data():
 
 if __name__ == '__main__':
     data = get_data()
-    data = data[:100]
+    data = data[:30]
     data = handle_categorical_features(data)
     data = handle_missing_values(data)
     data['cluster'] = clustering(data, 10)
