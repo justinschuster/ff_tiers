@@ -26,7 +26,7 @@ def plot_cluster(data, labels):
     plt.show()
 
 def clustering(data, k):
-    categories = ['best_ranking', 'worst_ranking', 'average_ranking']
+    categories = ['best_ranking', 'worst_ranking', 'average_ranking', 'consensus_ranking']
     data = data[categories]
     kmeans = KMeans(n_clusters=k)
     y_pred = kmeans.fit_predict(data)
