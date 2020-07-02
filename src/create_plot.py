@@ -19,7 +19,7 @@ def select_position(data, pos):
 
 def plot_cluster(data, labels, pos):
     style.use('ggplot')
-    fig, ax = plt.subplots(figsize=(15,25))
+    fig, ax = plt.subplots(figsize=(10,30))
     plt.ylabel('Consensus Rank')
     plt.xlabel('Average Rank')
     plt.title('Pre-Draft - ' + pos + ' Tiers')
@@ -59,7 +59,7 @@ def handle_categorical_features(data):
     return data
 
 def get_data():
-    df = pd.read_csv('../data/rankings.csv')
+    df = pd.read_csv('~/ff_tiers/data/rankings.csv')
     return df
 
 def get_position():
