@@ -2,20 +2,20 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
-import sys
 import argparse
 
 from sklearn.preprocessing import OrdinalEncoder
 from sklearn.cluster import KMeans
 from matplotlib.colors import rgb2hex
 from matplotlib import style 
+from sys import exit
 
 def select_position(data, pos):
     try:
         return data.loc[data['position'] == pos].reset_index(drop=True)
     except KeyError:
         print('Could not find: ' + pos)
-        sys.exit()
+        exit()
 
 def plot_cluster(data, labels, pos):
     style.use('ggplot')
