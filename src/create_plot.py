@@ -20,14 +20,14 @@ def plot_cluster(data, labels):
     for cluster_num in range(len(labels)):
         c = colors[cluster_num][:-1]
         curr_cluster = data.loc[data['cluster'] == labels[cluster_num]]
-        plt.errorbar(curr_cluster['average_ranking'], curr_cluster['consensus_ranking'], xerr=curr_cluster['ranking_std'], zorder=2,linestyle='None', ecolor=rgb2hex(c))
-        plt.scatter(curr_cluster['average_ranking'], curr_cluster['consensus_ranking'], color='black', zorder=2)
-
+        plt.errorbar(curr_cluster['average_ranking'], curr_cluster.index.values, xerr=curr_cluster['ranking_std'], zorder=2,linestyle='None', ecolor=rgb2hex(c))
+        plt.scatter(curr_cluster['average_ranking'], curr_cluster.index.values, color='black', zorder=2)
+    
     for i, txt in enumerate(data['player_name']):
-        ax.annotate(txt, xy=(data['average_ranking'][i], data['consensus_ranking'][i]), xytext=(4,6), textcoords="offset points")
+        ax.annotate(txt, xy=(data['average_ranking'][i], data.index.values[i]), xytext=(4,6), textcoords="offset points")
 
     ax.grid(b=True, which='major', color='white', linestyle='-')
-    plt.show()
+    plt.show()  
 
 def clustering(data, k):
     categories = ['best_ranking', 'worst_ranking', 'average_ranking', 'consensus_ranking']
@@ -55,6 +55,9 @@ def get_data():
 
 if __name__ == '__main__':
     data = get_data()
+    rb_data = data.loc[data['position'] == 'RB']
+    rb_data = rb_data.reset_index(drop=True) 
+    data = rb_data
     data = data[:30]
     data = handle_categorical_features(data)
     data = handle_missing_values(data)
