@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 import sys
+import argparse
 
 from sklearn.preprocessing import OrdinalEncoder
 from sklearn.cluster import KMeans
@@ -16,12 +17,12 @@ def select_position(data, pos):
         print('Could not find: ' + pos)
         sys.exit()
 
-def plot_cluster(data, labels):
+def plot_cluster(data, labels, pos):
     style.use('ggplot')
     fig, ax = plt.subplots(figsize=(15,25))
     plt.ylabel('Consensus Rank')
     plt.xlabel('Average Rank')
-    plt.title('Pre-Draft - Overall Tiers')
+    plt.title('Pre-Draft - ' + pos + ' Tiers')
     plt.gca().invert_yaxis()
 
     colors = cm.rainbow(np.linspace(0,1, len(labels)))
@@ -61,12 +62,20 @@ def get_data():
     df = pd.read_csv('../data/rankings.csv')
     return df
 
+def get_position():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-p", dest="pos", help="Desired position to plot", required=True) 
+    args = parser.parse_args()
+    pos = args.pos
+    return pos 
+
 if __name__ == '__main__':
     data = get_data()
-    data = select_position(data, 'WR') 
+    pos = get_position()
+    data = select_position(data, pos) 
     data = data[:30]
     data = handle_categorical_features(data)
     data = handle_missing_values(data)
     data['cluster'] = clustering(data, 5)
     labels = data['cluster'].unique()
-    plot_cluster(data, labels)
+    plot_cluster(data, labels, pos)
