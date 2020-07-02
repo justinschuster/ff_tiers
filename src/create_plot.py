@@ -19,7 +19,7 @@ def select_position(data, pos):
 
 def plot_cluster(data, labels, pos):
     style.use('ggplot')
-    fig, ax = plt.subplots(figsize=(10,30))
+    fig, ax = plt.subplots(figsize=(25,25))
     plt.ylabel('Consensus Rank')
     plt.xlabel('Average Rank')
     plt.title('Pre-Draft - ' + pos + ' Tiers')
