@@ -22,8 +22,9 @@ def plot_cluster(data, labels, pos):
     fig, ax = plt.subplots(figsize=(25,25))
     plt.ylabel('Consensus Rank')
     plt.xlabel('Average Rank')
-    plt.title('Pre-Draft - ' + pos + ' Tiers')
+    plt.title('Pre-Draft - ' + pos + ' Tiers - PPR')
     plt.gca().invert_yaxis()
+    ax.grid(b=True, which='major', color='white', linestyle='-')
 
     colors = cm.rainbow(np.linspace(0,1, len(labels)))
     for cluster_num in range(len(labels)):
@@ -34,9 +35,9 @@ def plot_cluster(data, labels, pos):
     
     for i, txt in enumerate(data['player_name']):
         ax.annotate(txt, xy=(data['average_ranking'][i], data.index.values[i]), xytext=(4,6), textcoords="offset points")
-
-    ax.grid(b=True, which='major', color='white', linestyle='-')
-    plt.show()  
+    
+    file_name = '~/ff_tiers/' + pos + '_plot.png'
+    plt.savefig(pos + '.png')
 
 def clustering(data, k):
     categories = ['best_ranking', 'worst_ranking', 'average_ranking', 'consensus_ranking']
