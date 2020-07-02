@@ -3,3 +3,5 @@ src/__pycache__
 src/tests/__pycache__
 data
 src/.ipynb_checkpoints
+*.png
+*.swp
