@@ -5,3 +5,4 @@ pip install -U pytest
 pip install pandas
 pip install -U scikit-learn
 pip install -U matplotlib
+pip install Django 
