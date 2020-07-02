@@ -2,11 +2,19 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
+import sys
 
 from sklearn.preprocessing import OrdinalEncoder
 from sklearn.cluster import KMeans
 from matplotlib.colors import rgb2hex
 from matplotlib import style 
+
+def select_position(data, pos):
+    try:
+        return data.loc[data['position'] == pos].reset_index(drop=True)
+    except KeyError:
+        print('Could not find: ' + pos)
+        sys.exit()
 
 def plot_cluster(data, labels):
     style.use('ggplot')
@@ -55,9 +63,7 @@ def get_data():
 
 if __name__ == '__main__':
     data = get_data()
-    rb_data = data.loc[data['position'] == 'RB']
-    rb_data = rb_data.reset_index(drop=True) 
-    data = rb_data
+    data = select_position(data, 'WR') 
     data = data[:30]
     data = handle_categorical_features(data)
     data = handle_missing_values(data)
