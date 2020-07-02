@@ -28,25 +28,11 @@ def get_player_data(file_name):
         player_data.append(info['data-team']) # append abbreviated team name  
         player_data.append(info['data-position']) # append player position
 
-        try: # append bye week
-            player_data.append(player_td_elements[4].contents[0])
-        except:
-            player_data.append('')
-
-        player_data.append(player_td_elements[5].contents[0]) # append best rank
-        player_data.append(player_td_elements[6].contents[0]) # append worst rank
-        player_data.append(player_td_elements[7].contents[0]) # append avg rank
-        player_data.append(player_td_elements[8].contents[0]) # append std of ranks 
-
-        try: # append ADP
-            player_data.append(player_td_elements[9].contents[0])
-        except:
-            player_data.append('')
-
-        try: # append .vs ADP 
-            player_data.append(player_td_elements[10].contents[0])
-        except:
-            player_data.append('')
+        for i in range(4, 11):
+            try:
+                player_data.append(player_td_elements[i].contents[0])
+            except:
+                player_data.append('')
 
         players.append(player_data)
     return players
