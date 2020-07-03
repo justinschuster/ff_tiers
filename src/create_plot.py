@@ -10,7 +10,7 @@ from matplotlib.colors import rgb2hex
 from matplotlib import style 
 from sys import exit
 
-def select_position(data, pos):
+def get_position_data(data, pos):
     try:
         return data.loc[data['position'] == pos].reset_index(drop=True)
     except KeyError:
@@ -63,20 +63,15 @@ def get_data():
     df = pd.read_csv('~/ff_tiers/data/rankings.csv')
     return df
 
-def get_position():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("-p", dest="pos", help="Desired position to plot", required=True) 
-    args = parser.parse_args()
-    pos = args.pos
-    return pos 
-
 if __name__ == '__main__':
+    positions = ['QB', 'RB', 'WR', 'TE', 'K']
     data = get_data()
-    pos = get_position()
-    data = select_position(data, pos) 
-    data = data[:30]
-    data = handle_categorical_features(data)
-    data = handle_missing_values(data)
-    data['cluster'] = clustering(data, 5)
-    labels = data['cluster'].unique()
-    plot_cluster(data, labels, pos)
+
+    for pos in positions:
+        position_data = get_position_data(data, pos)
+        position_data = position_data[:30]
+        position_data = handle_categorical_features(position_data)
+        position_data = handle_missing_values(position_data)
+        position_data['cluster'] = clustering(position_data, 5)
+        labels = position_data['cluster'].unique()
+        plot_cluster(position_data, labels, pos)
