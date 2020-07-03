@@ -10,6 +10,19 @@ from matplotlib.colors import rgb2hex
 from matplotlib import style 
 from sys import exit
 
+def mkdir_p(mypath):
+    '''Creates a directory. equivalent to using mkdir -p on the command line'''
+
+    from errno import EEXIST
+    from os import makedirs,path
+
+    try:
+        makedirs(mypath)
+    except OSError as exc: # Python >2.5
+        if exc.errno == EEXIST and path.isdir(mypath):
+            pass
+        else: raise
+
 def get_position_data(data, pos):
     try:
         return data.loc[data['position'] == pos].reset_index(drop=True)
@@ -36,8 +49,9 @@ def plot_cluster(data, labels, pos):
     for i, txt in enumerate(data['player_name']):
         ax.annotate(txt, xy=(data['average_ranking'][i], data.index.values[i]), xytext=(4,6), textcoords="offset points")
     
-    file_name = '~/ff_tiers/' + pos + '_plot.png'
-    plt.savefig(pos + '.png')
+    output_dir = '../plots'
+    mkdir_p(output_dir)   
+    plt.savefig('{}/{}_ppr.png'.format(output_dir, pos))
 
 def clustering(data, k):
     categories = ['best_ranking', 'worst_ranking', 'average_ranking', 'consensus_ranking']
