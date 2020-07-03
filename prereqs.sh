@@ -1,5 +1,6 @@
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 python get-pip.py
+rm get-pip.py
 pip install --upgrade pip
 python3 -m pip install --user virtualenv
 python3 -m venv env 
