@@ -10,7 +10,20 @@ from matplotlib.colors import rgb2hex
 from matplotlib import style 
 from sys import exit
 
-def select_position(data, pos):
+def mkdir_p(mypath):
+    '''Creates a directory. equivalent to using mkdir -p on the command line'''
+
+    from errno import EEXIST
+    from os import makedirs,path
+
+    try:
+        makedirs(mypath)
+    except OSError as exc: # Python >2.5
+        if exc.errno == EEXIST and path.isdir(mypath):
+            pass
+        else: raise
+
+def get_position_data(data, pos):
     try:
         return data.loc[data['position'] == pos].reset_index(drop=True)
     except KeyError:
@@ -36,8 +49,9 @@ def plot_cluster(data, labels, pos):
     for i, txt in enumerate(data['player_name']):
         ax.annotate(txt, xy=(data['average_ranking'][i], data.index.values[i]), xytext=(4,6), textcoords="offset points")
     
-    file_name = '~/ff_tiers/' + pos + '_plot.png'
-    plt.savefig(pos + '.png')
+    output_dir = '../plots'
+    mkdir_p(output_dir)   
+    plt.savefig('{}/{}_ppr.png'.format(output_dir, pos))
 
 def clustering(data, k):
     categories = ['best_ranking', 'worst_ranking', 'average_ranking', 'consensus_ranking']
@@ -47,9 +61,9 @@ def clustering(data, k):
     return y_pred
 
 def handle_missing_values(data):
-    data['bye_week'].fillna(method='ffill')
-    data['vs ADP'].fillna(method='ffill')
-    data['ADP'].fillna(method='ffill', inplace=True)
+    missing_value_categories = ['bye_week', 'vs ADP', 'ADP']
+    for cat in missing_value_categories:
+        data[cat].fillna(method='ffill')
     return data
 
 def handle_categorical_features(data):
@@ -63,20 +77,15 @@ def get_data():
     df = pd.read_csv('~/ff_tiers/data/rankings.csv')
     return df
 
-def get_position():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("-p", dest="pos", help="Desired position to plot", required=True) 
-    args = parser.parse_args()
-    pos = args.pos
-    return pos 
-
 if __name__ == '__main__':
+    positions = ['QB', 'RB', 'WR', 'TE', 'K']
     data = get_data()
-    pos = get_position()
-    data = select_position(data, pos) 
-    data = data[:30]
-    data = handle_categorical_features(data)
-    data = handle_missing_values(data)
-    data['cluster'] = clustering(data, 5)
-    labels = data['cluster'].unique()
-    plot_cluster(data, labels, pos)
+
+    for pos in positions:
+        position_data = get_position_data(data, pos)
+        position_data = position_data[:30]
+        position_data = handle_categorical_features(position_data)
+        position_data = handle_missing_values(position_data)
+        position_data['cluster'] = clustering(position_data, 5)
+        labels = position_data['cluster'].unique()
+        plot_cluster(position_data, labels, pos)

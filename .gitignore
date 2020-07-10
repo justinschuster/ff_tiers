@@ -1,7 +1,7 @@
-ff_tiers
+env/
 src/__pycache__
 src/tests/__pycache__
-data
+data/
 src/.ipynb_checkpoints
 *.png
 *.swp
