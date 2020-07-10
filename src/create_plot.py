@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 import argparse
+import itertools
 
 from sklearn.preprocessing import OrdinalEncoder
 from sklearn.cluster import KMeans
@@ -39,11 +40,12 @@ def plot_cluster(data, labels, pos):
     plt.gca().invert_yaxis()
     ax.grid(b=True, which='major', color='white', linestyle='-')
 
-    colors = cm.rainbow(np.linspace(0,1, len(labels)))
+    #colors = cm.rainbow(np.linspace(0,1, len(labels)))
+    colors = itertools.cycle(['r','g','b', 'magenta', 'sienna'])
     for cluster_num in range(len(labels)):
-        c = colors[cluster_num][:-1]
+        c = next(colors)
         curr_cluster = data.loc[data['cluster'] == labels[cluster_num]]
-        plt.errorbar(curr_cluster['average_ranking'], curr_cluster.index.values, xerr=curr_cluster['ranking_std'], zorder=2,linestyle='None', ecolor=rgb2hex(c))
+        plt.errorbar(curr_cluster['average_ranking'], curr_cluster.index.values, xerr=curr_cluster['ranking_std'], zorder=2,linestyle='None', ecolor=c)
         plt.scatter(curr_cluster['average_ranking'], curr_cluster.index.values, color='black', zorder=2)
     
     for i, txt in enumerate(data['player_name']):
