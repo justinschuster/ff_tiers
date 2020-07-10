@@ -31,12 +31,12 @@ def get_position_data(data, pos):
         print('Could not find: ' + pos)
         exit()
 
-def plot_cluster(data, labels, pos):
+def plot_cluster(data, labels, pos, scoring_sys):
     style.use('ggplot')
     fig, ax = plt.subplots(figsize=(25,25))
     plt.ylabel('Consensus Rank')
     plt.xlabel('Average Rank')
-    plt.title('Pre-Draft - ' + pos + ' Tiers - PPR')
+    plt.title('Pre-Draft - {} - Tiers - {}'.format(pos, scoring_sys))
     plt.gca().invert_yaxis()
     ax.grid(b=True, which='major', color='white', linestyle='-')
 
@@ -53,7 +53,7 @@ def plot_cluster(data, labels, pos):
     
     output_dir = '../plots'
     mkdir_p(output_dir)   
-    plt.savefig('{}/{}_ppr.png'.format(output_dir, pos))
+    plt.savefig('{}/{}_{}.png'.format(output_dir, pos, scoring_sys))
 
 def clustering(data, k):
     categories = ['best_ranking', 'worst_ranking', 'average_ranking', 'consensus_ranking']
@@ -75,19 +75,21 @@ def handle_categorical_features(data):
     data['position'] = position_encode
     return data
 
-def get_data():
-    df = pd.read_csv('~/ff_tiers/data/rankings.csv')
+def get_data(scoring_sys):
+    df = pd.read_csv('~/ff_tiers/data/{}-rankings.csv'.format(scoring_sys))
     return df
 
 if __name__ == '__main__':
     positions = ['QB', 'RB', 'WR', 'TE', 'K']
-    data = get_data()
+    file_names = ["standard", "ppr", "half-ppr"]
 
-    for pos in positions:
-        position_data = get_position_data(data, pos)
-        position_data = position_data[:30]
-        position_data = handle_categorical_features(position_data)
-        position_data = handle_missing_values(position_data)
-        position_data['cluster'] = clustering(position_data, 5)
-        labels = position_data['cluster'].unique()
-        plot_cluster(position_data, labels, pos)
+    for scoring_sys in file_names:
+        data = get_data(scoring_sys)
+        for pos in positions:
+            position_data = get_position_data(data, pos)
+            position_data = position_data[:30]
+            position_data = handle_categorical_features(position_data)
+            position_data = handle_missing_values(position_data)
+            position_data['cluster'] = clustering(position_data, 5)
+            labels = position_data['cluster'].unique()
+            plot_cluster(position_data, labels, pos, scoring_sys)
