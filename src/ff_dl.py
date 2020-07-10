@@ -5,8 +5,8 @@ import csv
 
 from bs4 import BeautifulSoup
 
-def create_csv_file(player_info):
-    with open('/home/justin/ff_tiers/data/rankings.csv', 'w', newline='') as csv_file:
+def create_csv_file(scoring_system, player_info):
+    with open('/home/justin/ff_tiers/data/{}-rankings.csv'.format(scoring_system), 'w+', newline='') as csv_file:
         wr = csv.writer(csv_file, quoting=csv.QUOTE_ALL)
         for player in player_info:
             wr.writerow(player)
@@ -39,8 +39,8 @@ def get_player_data(file_name):
     return players
     
 def download_rankings(url, file_name, user_info):
-    resp = requests.get(url, auth=(user_info['username'], user_info['password']))
-    output = open(file_name, 'wb')
+    resp = requests.get(url, auth=(user_info['username'], user_info['password'])) 
+    output = open(file_name, 'w+b')
     output.write(resp.content)
     output.close()
 
@@ -53,14 +53,17 @@ def get_url():
     file_name = args.file_name
     return url, file_name
 
-def main():
-    ffp_url, file_name = get_url()
-    #ffp_url = 'https://www.fantasypros.com/nfl/rankings/consensus-cheatsheets.php?export=xls'
-    #file_name = '~/ff_tiers/data/rankings.html'
+def main(): 
+    urls = ["consensus", "ppr", "half-point-ppr"]
     user_info = {'username':'schujustin', 'password':'justin1', 'token':'1'}
-    download_rankings(ffp_url, file_name, user_info)
-    player_info = get_player_data(file_name)
-    create_csv_file(player_info)
+    file_names = ["standard", "ppr", "half-ppr"]
+
+    for i in range(0, 3):
+        url = "https://www.fantasypros.com/nfl/rankings/{}-cheatsheets.php?export=xls".format(urls[i])
+        file_name = "/home/justin/ff_tiers/data/{}-rankings.html".format(file_names[i])
+        download_rankings(url, file_name, user_info)
+        player_info = get_player_data(file_name)
+        create_csv_file(file_names[i], player_info)
 
 if __name__ == "__main__":
     main()
