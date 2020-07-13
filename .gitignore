@@ -5,3 +5,4 @@ data/
 src/.ipynb_checkpoints
 *.png
 *.swp
+*.ipynb
