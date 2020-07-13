@@ -1,4 +1,3 @@
-import os
 import ff_dl
 import create_plot
 
