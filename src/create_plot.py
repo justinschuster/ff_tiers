@@ -79,18 +79,3 @@ def handle_categorical_features(data):
 def get_data(scoring_sys):
     df = pd.read_csv('~/ff_tiers/data/{}-rankings.csv'.format(scoring_sys))
     return df
-
-if __name__ == '__main__':
-    positions = ['QB', 'RB', 'WR', 'TE', 'K']
-    file_names = ["standard", "ppr", "half-ppr"]
-
-    for scoring_sys in file_names:
-        data = get_data(scoring_sys)
-        for pos in positions:
-            position_data = get_position_data(data, pos)
-            position_data = position_data[:50]
-            position_data = handle_categorical_features(position_data)
-            position_data = handle_missing_values(position_data)
-            position_data['cluster'] = clustering(position_data, 7)
-            labels = position_data['cluster'].unique()
-            plot_cluster(position_data, labels, pos, scoring_sys) 

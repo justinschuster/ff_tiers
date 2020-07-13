@@ -52,18 +52,3 @@ def get_url():
     url = args.url
     file_name = args.file_name
     return url, file_name
-
-def main(): 
-    urls = ["consensus", "ppr", "half-point-ppr"]
-    user_info = {'username':'schujustin', 'password':'justin1', 'token':'1'}
-    file_names = ["standard", "ppr", "half-ppr"]
-
-    for i in range(0, 3):
-        url = "https://www.fantasypros.com/nfl/rankings/{}-cheatsheets.php?export=xls".format(urls[i])
-        file_name = "/home/justin/ff_tiers/data/{}-rankings.html".format(file_names[i])
-        download_rankings(url, file_name, user_info)
-        player_info = get_player_data(file_name)
-        create_csv_file(file_names[i], player_info)
-
-if __name__ == "__main__":
-    main()
