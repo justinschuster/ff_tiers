@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
-import argparse
 import itertools
 
 from sklearn.preprocessing import OrdinalEncoder
@@ -14,13 +13,12 @@ from sklearn.metrics import silhouette_score
 
 def mkdir_p(mypath):
     '''Creates a directory. equivalent to using mkdir -p on the command line'''
-
     from errno import EEXIST
     from os import makedirs,path
 
     try:
         makedirs(mypath)
-    except OSError as exc: # Python >2.5
+    except OSError as exc:
         if exc.errno == EEXIST and path.isdir(mypath):
             pass
         else: raise
@@ -41,7 +39,6 @@ def plot_cluster(data, labels, pos, scoring_sys):
     plt.gca().invert_yaxis()
     ax.grid(b=True, which='major', color='white', linestyle='-')
 
-    #colors = cm.rainbow(np.linspace(0,1, len(labels)))
     colors = itertools.cycle(['r','g','b', 'magenta', 'sienna', 'c', 'k'])
     for cluster_num in range(len(labels)):
         c = next(colors)
