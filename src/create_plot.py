@@ -40,15 +40,20 @@ def plot_cluster(data, labels, pos, scoring_sys):
     ax.grid(b=True, which='major', color='white', linestyle='-')
 
     colors = itertools.cycle(['r','g','b', 'magenta', 'sienna', 'c', 'k'])
+    data['tier'] = [0]*len(data['cluster'])
+    tier = 1
     for cluster_num in range(len(labels)):
         c = next(colors)
         curr_cluster = data.loc[data['cluster'] == labels[cluster_num]]
+        data.loc[data['cluster'] == labels[cluster_num], 'tier'] = tier
         plt.errorbar(curr_cluster['average_ranking'], curr_cluster.index.values, xerr=curr_cluster['ranking_std'], zorder=2,linestyle='None', ecolor=c)
-        plt.scatter(curr_cluster['average_ranking'], curr_cluster.index.values, color='black', zorder=2)
+        plt.scatter(curr_cluster['average_ranking'], curr_cluster.index.values, color=c, zorder=2, label='Tier {}'.format(tier))
+        tier += 1
     
     for i, txt in enumerate(data['player_name']):
         ax.annotate(txt, xy=(data['average_ranking'][i], data.index.values[i]), xytext=(4,6), textcoords="offset points")
-    
+
+    plt.legend(facecolor='white', markerscale=1.5, fontsize='x-large')
     output_dir = '../plots'
     mkdir_p(output_dir)   
     plt.savefig('{}/{}_{}.png'.format(output_dir, pos, scoring_sys))
