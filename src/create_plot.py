@@ -79,5 +79,5 @@ def handle_categorical_features(data):
     return data
 
 def get_data(scoring_sys):
-    df = pd.read_csv('~/ff_tiers/data/{}-rankings.csv'.format(scoring_sys))
+    df = pd.read_csv('/home/schuj/ff_tiers/data/{}-rankings.csv'.format(scoring_sys))
     return df

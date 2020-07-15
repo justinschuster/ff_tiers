@@ -9,7 +9,7 @@ if __name__ == '__main__':
 
     for i in range(0, 3):
         url = "https://www.fantasypros.com/nfl/rankings/{}-cheatsheets.php?export=xls".format(urls[i])
-        file_name = "/home/justin/ff_tiers/data/{}-rankings.html".format(file_names[i])
+        file_name = "/home/schuj/ff_tiers/data/{}-rankings.html".format(file_names[i])
         ff_dl.download_rankings(url, file_name, user_info)
         player_info = ff_dl.get_player_data(file_name)
         ff_dl.create_csv_file(file_names[i], player_info)  
