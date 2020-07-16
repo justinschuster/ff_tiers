@@ -38,8 +38,7 @@ def get_player_data(file_name):
         players.append(player_data)
     return players
     
-def download_rankings(url, file_name, user_info):
-    print(file_name)
+def download_rankings(url, file_name, user_info): 
     resp = requests.get(url, auth=(user_info['username'], user_info['password'])) 
     output = open(file_name, 'w+b')
     output.write(resp.content)
