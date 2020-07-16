@@ -66,7 +66,7 @@ def clustering(data, k):
     return y_pred
 
 def handle_missing_values(data):
-    missing_value_categories = ['bye_week', 'vs ADP', 'ADP']
+    missing_value_categories = ['bye_week', 'vs_ADP', 'ADP']
     for cat in missing_value_categories:
         data[cat].fillna(method='ffill')
     return data

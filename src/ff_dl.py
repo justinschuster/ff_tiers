@@ -15,7 +15,7 @@ def get_player_data(file_name):
     players = []
     column_headings = ['consensus_ranking', 'player_name', 'team_name_abbrev', 'position', 'bye_week', 'best_ranking', 'worst_ranking',
             
-                        'average_ranking', 'ranking_std', 'ADP', 'vs ADP']
+                        'average_ranking', 'ranking_std', 'ADP', 'vs_ADP']
     players.append(column_headings)
 
     with open(file_name) as fp:
