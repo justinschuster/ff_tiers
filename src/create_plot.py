@@ -93,23 +93,12 @@ def clustering(data, k):
     y_pred = kmeans.fit_predict(data)
     return y_pred
 
-
-def handle_missing_values(data):
-    """Handles missing values found in bye_week, vs_ADP and ADP categories."""
-
-    missing_value_categories = ['bye_week', 'vs_ADP', 'ADP']
-    for cat in missing_value_categories:
-        data[cat].fillna(method='ffill')
-    return data
-
-
 def handle_categorical_features(data):
     position_cat = data[['position']]
     ordinal_encoder = OrdinalEncoder()
     position_encode = ordinal_encoder.fit_transform(position_cat)
     data['position'] = position_encode
     return data
-
 
 def handle_wrong_dtypes(data):
     """Explicitly defines the data types for numerical categories."""
