@@ -94,6 +94,8 @@ def clustering(data, k):
     return y_pred
 
 def handle_categorical_features(data):
+    """Encodes the position feature for future use."""
+
     position_cat = data[['position']]
     ordinal_encoder = OrdinalEncoder()
     position_encode = ordinal_encoder.fit_transform(position_cat)
