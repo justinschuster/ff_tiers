@@ -66,7 +66,7 @@ def clustering(data, k):
     return y_pred
 
 def handle_missing_values(data):
-    missing_value_categories = ['bye_week', 'vs ADP', 'ADP']
+    missing_value_categories = ['bye_week', 'vs_ADP', 'ADP']
     for cat in missing_value_categories:
         data[cat].fillna(method='ffill')
     return data
@@ -78,6 +78,10 @@ def handle_categorical_features(data):
     data['position'] = position_encode
     return data
 
-def get_data(scoring_sys):
-    df = pd.read_csv('~/ff_tiers/data/{}-rankings.csv'.format(scoring_sys))
-    return df
+def handle_wrong_dtypes(data):
+    numeric_categories = ['consensus_ranking', 'bye_week', 'best_ranking', 
+            'worst_ranking', 'average_ranking', 'ranking_std', 'ADP', 'vs_ADP']
+    for cat in numeric_categories:
+        data[cat] = pd.to_numeric(data[cat], errors='coerce')
+    return data 
+

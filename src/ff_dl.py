@@ -6,7 +6,7 @@ import csv
 from bs4 import BeautifulSoup
 
 def create_csv_file(scoring_system, player_info):
-    with open('/home/justin/ff_tiers/data/{}-rankings.csv'.format(scoring_system), 'w+', newline='') as csv_file:
+    with open('/home/schuj/ff_tiers/data/{}-rankings.csv'.format(scoring_system), 'w+', newline='') as csv_file:
         wr = csv.writer(csv_file, quoting=csv.QUOTE_ALL)
         for player in player_info:
             wr.writerow(player)
@@ -15,7 +15,7 @@ def get_player_data(file_name):
     players = []
     column_headings = ['consensus_ranking', 'player_name', 'team_name_abbrev', 'position', 'bye_week', 'best_ranking', 'worst_ranking',
             
-                        'average_ranking', 'ranking_std', 'ADP', 'vs ADP']
+                        'average_ranking', 'ranking_std', 'ADP', 'vs_ADP']
     players.append(column_headings)
 
     with open(file_name) as fp:
@@ -38,7 +38,7 @@ def get_player_data(file_name):
         players.append(player_data)
     return players
     
-def download_rankings(url, file_name, user_info):
+def download_rankings(url, file_name, user_info): 
     resp = requests.get(url, auth=(user_info['username'], user_info['password'])) 
     output = open(file_name, 'w+b')
     output.write(resp.content)
