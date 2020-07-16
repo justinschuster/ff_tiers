@@ -77,7 +77,3 @@ def handle_categorical_features(data):
     position_encode = ordinal_encoder.fit_transform(position_cat)
     data['position'] = position_encode
     return data
-
-def get_data(scoring_sys):
-    df = pd.read_csv('/home/schuj/ff_tiers/data/{}-rankings.csv'.format(scoring_sys))
-    return df
