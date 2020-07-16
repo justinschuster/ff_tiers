@@ -16,16 +16,8 @@ if __name__ == '__main__':
         ff_dl.download_rankings(url, file_name, user_info)
         player_info = ff_dl.get_player_data(file_name)
         player_df = pd.DataFrame(np.array(player_info[1:]), columns=player_info[0])        
-        player_df.consensus_ranking = pd.to_numeric(player_df.consensus_ranking)
-        player_df.bye_week = pd.to_numeric(player_df.bye_week)
-        player_df.best_ranking = pd.to_numeric(player_df.best_ranking)
-        player_df.worst_ranking = pd.to_numeric(player_df.worst_ranking)
-        player_df.average_ranking = pd.to_numeric(player_df.average_ranking)
-        player_df.ranking_std = pd.to_numeric(player_df.ranking_std)
-        player_df.ADP = pd.to_numeric(player_df.ADP, errors='coerce')
-        player_df.vs_ADP = pd.to_numeric(player_df.vs_ADP)
- 
-        data = player_df 
+        
+        data = create_plot.handle_wrong_dtypes(player_df)
         for pos in positions:
             position_data = create_plot.get_position_data(data, pos)
             position_data = position_data[:50]

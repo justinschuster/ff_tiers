@@ -77,3 +77,11 @@ def handle_categorical_features(data):
     position_encode = ordinal_encoder.fit_transform(position_cat)
     data['position'] = position_encode
     return data
+
+def handle_wrong_dtypes(data):
+    numeric_categories = ['consensus_ranking', 'bye_week', 'best_ranking', 
+            'worst_ranking', 'average_ranking', 'ranking_std', 'ADP', 'vs_ADP']
+    for cat in numeric_categories:
+        data[cat] = pd.to_numeric(data[cat], errors='coerce')
+    return data 
+
