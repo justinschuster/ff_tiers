@@ -4,20 +4,33 @@ Tests the functions and uses of ff_dl.py.
 """
 
 import sys
+import os
 import unittest
 
 sys.path.insert(0, '/home/schuj/ff_tiers/src/')
 
 import ff_dl
 
+PROJECT_PATH = '/home/schuj/ff_tiers/'
+FILE_NAME = 'data/standard-rankings.html'
+
 class TestClass(unittest.TestCase):
     """ Class for test functions for ff_dl.py """
+    def setUp(self):
+        self.player_data = ff_dl.get_player_data(PROJECT_PATH + FILE_NAME)
+
+    """
+    def test_ranking_files(self):
+
+        formats = ['standard', 'ppr', 'half-ppr']
+        files = []
+    """
 
     def test_get_player_data_correct_length(self):
         """ Checks to see if the player data is correct length. """
 
         file = '/home/schuj/ff_tiers/data/standard-rankings.html'
-        self.assertEqual(496, len(ff_dl.get_player_data(file)))
+        self.assertEqual(496, len(self.player_data))
 
     def test_player_data_column_headings(self):
         """ Checks for proper column headings. """
@@ -28,7 +41,7 @@ class TestClass(unittest.TestCase):
             'average_ranking', 'ranking_std', 'ADP', 'vs_ADP'
         ]
         file = '/home/schuj/ff_tiers/data/standard-rankings.html'
-        self.assertEqual(column_headings, ff_dl.get_player_data(file)[0])
+        self.assertEqual(column_headings, self.player_data[0])
 
 if __name__ == "__main__":
     unittest.main()
