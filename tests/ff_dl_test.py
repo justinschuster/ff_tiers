@@ -19,17 +19,9 @@ class TestClass(unittest.TestCase):
     def setUp(self):
         self.player_data = ff_dl.get_player_data(PROJECT_PATH + FILE_NAME)
 
-    """
-    def test_ranking_files(self):
-
-        formats = ['standard', 'ppr', 'half-ppr']
-        files = []
-    """
-
     def test_get_player_data_correct_length(self):
         """ Checks to see if the player data is correct length. """
 
-        file = '/home/schuj/ff_tiers/data/standard-rankings.html'
         self.assertEqual(496, len(self.player_data))
 
     def test_player_data_column_headings(self):
@@ -40,7 +32,6 @@ class TestClass(unittest.TestCase):
             'position', 'bye_week', 'best_ranking', 'worst_ranking',
             'average_ranking', 'ranking_std', 'ADP', 'vs_ADP'
         ]
-        file = '/home/schuj/ff_tiers/data/standard-rankings.html'
         self.assertEqual(column_headings, self.player_data[0])
 
 if __name__ == "__main__":
