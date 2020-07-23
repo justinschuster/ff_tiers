@@ -28,7 +28,6 @@ def mkdir_p(mypath):
         else:
             raise
 
-
 def get_position_data(data, pos):
     """Returns data only for the specified position"""
 
@@ -37,7 +36,6 @@ def get_position_data(data, pos):
     except KeyError:
         print('Could not find: ' + pos)
         sys.exit()
-
 
 def plot_cluster(data, labels, pos, scoring_sys):
     """Creates a scatter plot of the clustered data. """

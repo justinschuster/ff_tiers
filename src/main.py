@@ -29,7 +29,7 @@ if __name__ == '__main__':
         for pos in POSITIONS:
             position_data = create_plot.get_position_data(data, pos)
             position_data = position_data[:50]
-            position_data = create_plot.handle_categorical_features(position_data) 
+            position_data = create_plot.handle_categorical_features(position_data)
             position_data['cluster'] = create_plot.clustering(position_data, 7)
             labels = position_data['cluster'].unique()
             create_plot.plot_cluster(position_data, labels, pos, FILE_NAMES[i])

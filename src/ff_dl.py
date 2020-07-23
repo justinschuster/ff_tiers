@@ -44,6 +44,5 @@ def download_rankings(url, file_name, user_info):
 
     resp = requests.get(url,
                         auth=(user_info['username'], user_info['password']))
-    output = open(file_name, 'w+b')
-    output.write(resp.content)
-    output.close()
+    with open(file_name, 'wb+') as file:
+        file.write(resp.content)
