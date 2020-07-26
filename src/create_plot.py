@@ -75,9 +75,9 @@ def plot_cluster(data, labels, pos, scoring_sys):
                     textcoords="offset points")
 
     plt.legend(facecolor='white', markerscale=1.5, fontsize='x-large')
-    output_dir = '../plots'
+    output_dir = 'plots'
     mkdir_p(output_dir)
-    plt.savefig('{}/{}_{}.png'.format(output_dir, pos, scoring_sys))
+    plt.savefig('plots/{}_{}.png'.format(pos, scoring_sys))
 
 
 def clustering(data, k):
