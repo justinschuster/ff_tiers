@@ -28,7 +28,6 @@ def mkdir_p(mypath):
         else:
             raise
 
-
 def get_position_data(data, pos):
     """Returns data only for the specified position"""
 
@@ -37,7 +36,6 @@ def get_position_data(data, pos):
     except KeyError:
         print('Could not find: ' + pos)
         sys.exit()
-
 
 def plot_cluster(data, labels, pos, scoring_sys):
     """Creates a scatter plot of the clustered data. """
@@ -77,9 +75,9 @@ def plot_cluster(data, labels, pos, scoring_sys):
                     textcoords="offset points")
 
     plt.legend(facecolor='white', markerscale=1.5, fontsize='x-large')
-    output_dir = '../plots'
+    output_dir = 'plots'
     mkdir_p(output_dir)
-    plt.savefig('{}/{}_{}.png'.format(output_dir, pos, scoring_sys))
+    plt.savefig('plots/{}_{}.png'.format(pos, scoring_sys))
 
 
 def clustering(data, k):
