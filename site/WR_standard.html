@@ -2,11 +2,11 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Fantasy Football Tiers</title>
+		<title>Standard Tiers - Fantasy Football Tiers.com</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
 	</head>
-	<body>	
+	<body>
 		<nav class="navbar has-background-dark" role="navigation" aria-label="main navigation">
 			<div class="navbar-menu is-active">
 				<div class="navbar-start">
@@ -26,34 +26,41 @@
 			</div>
 		</nav>
 		<section class="section">
-			<div class="container is-centered">
-				<h1 class="title is-center">Fantasy Football Tiers</h1>
-				<h1>Tiers for each scoring format can be found using the links above</h1>
-				<p>All data is retireved from the <a href="https://www.fantasypros.com/nfl/rankings/ppr-cheatsheets.php">Fantasy Pros Consensus Rankings.</a><p>
+			<div class="container">
+				<h1 class="title">Standard Tiers</h1>
 			</div>
 		</section>
 		<section class="section">
 			<div class="columns is-8 is-multiline is-centered mx-6">
-				<div class="column is-narrow is-one-third has-background-light">
-					Standard
-					<div class="content">
-						<dl>
-							<li>QB</li>
-						</dl>
-					</div>
+				<div class="column is-one-third">
 				</div>
-				<div class="column is-narrow is-one-third has-background-light">
-					PPR
+				<div class="column is-narrow is-one-third">
+					<nav class="breadcrumb" aria-label="breadcrumbs">
+						<ul class="is-centered">	
+							<li><a href="QB_standard.html">QB</a></li>
+							<li><a href="RB_standard.html">RB</a></li>
+							<li class="is-active"><a href="WR_standard.html">WR</a></li>
+							<li><a href="TE_standard.html">TE</a></li>
+							<li><a href="K_standard.html">K</a></li>
+						</ul>
+					</nav>
 				</div>
-				<div class="column is-narrow is-one-third has-background-light">
-					Half Point PPR
+				<div class="column is-one-third">	
 				</div>
+			</div>
+		</section>	
+		<section class="section">
+			<div class="container">	
+				<figure class="image is-1by1">
+					<img src="plots/WR_standard.png">
+				</figure>
+			</figure>
 			</div>
 		</section>
 		<footer class="footer">
 			<div class="content has-text-centered">
 				<strong>Fantasy Football Tiers</strong> by Justin Schuster. Source code can be found on <a href="https://github.com/justinschuster/ff_tiers">github</a>
 			</div>
-		</footer>
+		</footer>	
 	</body>
 </html>
