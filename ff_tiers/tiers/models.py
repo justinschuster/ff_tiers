@@ -42,3 +42,6 @@ class Plots(models.Model):
 		choices=POSITION_CHOICES,
 		default=QB,
 	)
+
+        def __str__(self):
+            return self.plot_path
