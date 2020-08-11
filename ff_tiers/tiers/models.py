@@ -1,4 +1,4 @@
-import os
+i				<div class="navbar-end">mport os
 from django.conf import settings
 from django.db import models
 
@@ -36,8 +36,8 @@ class Plots(models.Model):
 		max_length=4,
 		choices=SCORING_FORMAT_CHOICES,
 		default=STANDARD,
-	)	
-	positon = models.CharField(
+	)
+	position = models.CharField(
 		max_length=2,
 		choices=POSITION_CHOICES,
 		default=QB,
