@@ -19,6 +19,7 @@ class PlotModelTestCase(TestCase):
         )
 
     def test_string_representation(self):
+        """ String representation of Plots are the same as plot_name. """
         test_plot = Plot.objects.get(plot_name='test_plot_1')
         self.assertEqual(str(test_plot), test_plot.plot_name)
 
