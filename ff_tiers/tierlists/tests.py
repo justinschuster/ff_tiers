@@ -29,3 +29,7 @@ class PlotModelTestCase(TestCase):
         test_plot_2 = Plot.objects.get(plot_name='test_plot_2')
         self.assertTrue(Plot.was_created_today(test_plot_1))
         self.assertTrue(Plot.was_created_today(test_plot_1))
+
+    def test_verbose_name_plural(self):
+        """ Verbose plural name of Plot should be plots. """
+        self.assertEqual(str(Plot._meta.verbose_name_plural), "plots")
