@@ -1,0 +1,9 @@
+{% if latest_plots_list %}
+	<ul>
+	{% for plot in latest_plots_list %}
+		<li><a href="/plots/{{ plot.id }}/">{{ plot.plot_name }}</a></li>
+	{% endfor %}
+	</ul>
+{% else %}
+	<p>No plots are available</p>
+{% endif %}
