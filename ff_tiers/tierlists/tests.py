@@ -3,7 +3,7 @@ from django.utils import timezone
 
 from .models import Plot
 
-class PlotTestCase(TestCase):
+class PlotModelTestCase(TestCase):
     def setUp(self):
         Plot.objects.create(
             plot_name="test_plot_1",
