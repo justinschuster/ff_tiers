@@ -7,6 +7,6 @@ def index(request):
     context = {'latest_plots_list': latest_plots_list}
     return render(request, 'tierlists/index.html', context)
 
-def tier_list(request, plots_id):
+def plot(request, plot_id):
     plot = get_object_or_404(Plot, pk=plot_id)
-    return render(request, 'tierlists/tier_list.html', {'plot': plot})
+    return render(request, 'tierlists/plot.html', {'plot': plot})
