@@ -1,14 +1,11 @@
 import datetime
 
-from os import path
-from django.db import models
 from django.utils import timezone
-
-def plots_path():
-    return os.path.join(setting.LOCAL_FILE_DIR, 'plots')
+from django.conf import settings
+from django.db import models
 
 class Plots(models.Model):
-    # Scoring format Constants
+    # Scoring Format Constants
     STANDARD = 'STND'
     PPR = 'FPPR'
     HALF_PPR = 'HPPR'
@@ -32,7 +29,8 @@ class Plots(models.Model):
         (K, 'K'),
     )
 
-    plot_path = models.FilePathField(path=plots_path)
+    # Model Fields
+    plot_name = models.TextField(default='test_field')
     creation_date = models.DateTimeField('creation_date')
     scoring_format = models.CharField(
         max_length=4,
@@ -46,7 +44,7 @@ class Plots(models.Model):
     )
 
     def __str__(self):
-        return self.plot_path
+        return self.plot_name
 
     def was_created_today(self):
         return self.creation_date >= timezone.now() - datetime.timedelta(days=1)
