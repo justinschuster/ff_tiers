@@ -17,6 +17,6 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('plots/', include('plots.urls')),
+    path('tierlists/', include('tierlists.urls')),
     path('admin/', admin.site.urls),
 ]
