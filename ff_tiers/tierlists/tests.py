@@ -18,6 +18,10 @@ class PlotModelTestCase(TestCase):
             position='RB'
         )
 
+    def test_string_representation(self):
+        test_plot = Plot.objects.get(plot_name='test_plot_1')
+        self.assertEqual(str(test_plot), test_plot.plot_name)
+
     def test_was_created_today(self):
         """ Plots created today are correctly identified. """
         test_plot_1 = Plot.objects.get(plot_name='test_plot_1')
