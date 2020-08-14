@@ -5,6 +5,7 @@ from .models import Plot
 
 class PlotModelTestCase(TestCase):
     def setUp(self):
+        """ Creates two Plot objects to be used during testing. """
         Plot.objects.create(
             plot_name="test_plot_1",
             creation_date=timezone.now(),
