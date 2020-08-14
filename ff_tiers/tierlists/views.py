@@ -1,12 +1,18 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
+from django.urls import reverse
+from django.views import generic
 
 from .models import Plot
 
-def index(request):
-    latest_plots_list = Plot.objects.order_by('-creation_date')[:5]
-    context = {'latest_plots_list': latest_plots_list}
-    return render(request, 'tierlists/index.html', context)
+class IndexView(generic.ListView):
+    template_name = 'tierlists/index.html'
+    context_object_name = 'latest_plot_list'
 
-def plot(request, plot_id):
-    plot = get_object_or_404(Plot, pk=plot_id)
-    return render(request, 'tierlists/plot.html', {'plot': plot})
+    def get_queryset(self):
+        """ Return the last five created plots. """
+        return Plot.objects.order_by('-creation_date')[:5]
+
+class PlotView(generic.DetailView):
+    model = Plot
+    template_name = 'tierlists/plot.html'
