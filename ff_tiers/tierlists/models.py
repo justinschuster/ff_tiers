@@ -4,7 +4,7 @@ from django.utils import timezone
 from django.conf import settings
 from django.db import models
 
-class Plots(models.Model):
+class Plot(models.Model):
     # Scoring Format Constants
     STANDARD = 'STND'
     PPR = 'FPPR'
