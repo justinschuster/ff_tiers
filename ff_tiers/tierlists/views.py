@@ -2,6 +2,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
+from django.utils import timezone
 
 from .models import Plot
 
@@ -11,7 +12,9 @@ class IndexView(generic.ListView):
 
     def get_queryset(self):
         """ Return the last five created plots. """
-        return Plot.objects.order_by('-creation_date')[:5]
+        return Plot.objects.filter(
+            creation_date__lte=timezone.now()
+        ).order_by('-creation_date')[:5]
 
 class PlotView(generic.DetailView):
     model = Plot
