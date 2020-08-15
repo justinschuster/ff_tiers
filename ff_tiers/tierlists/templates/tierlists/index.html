@@ -1,7 +1,7 @@
-{% if latest_plots_list %}
+{% if latest_plot_list %}
 	<ul>
-	{% for plot in latest_plots_list %}
-		<li><a href="/tierlists/{{ plot.id }}/">{{ plot.plot_name }}</a></li>
+	{% for plot in latest_plot_list %}
+	<li><a href="{% url 'tierlists:plot' pk=plot.id %}">{{ plot.plot_name }}</a></li>
 	{% endfor %}
 	</ul>
 {% else %}
