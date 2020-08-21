@@ -48,3 +48,7 @@ class Plot(models.Model):
 
     def was_created_today(self):
         return self.creation_date >= timezone.now() - datetime.timedelta(days=1)
+
+    def get_position(self):
+        """ Returns the position of a plot. """
+        return self.position
