@@ -6,7 +6,7 @@ from django.urls import reverse
 
 from .models import Plot
 
-def create_plot(plot_name, days):
+def create_plot(plot_name, days, scoring_format='STND', position='QB'):
     """
     Create a plot with the given plot_name and published the given days from now.
     """
@@ -15,29 +15,19 @@ def create_plot(plot_name, days):
 
 class PlotModelTestCase(TestCase):
     def setUp(self):
-        """ Creates two Plot objects to be used testing Plot Class. """
-        Plot.objects.create(
-            plot_name="test_plot_1",
-            creation_date=timezone.now(),
-            scoring_format='HPPR',
-            position='WR'
-        )
-        Plot.objects.create(
-            plot_name="test_plot_2",
-            creation_date=timezone.now(),
-            scoring_format='FPPR',
-            position='RB'
-        )
+        """ Creates two Plot objects to be used testing Plot Class. """ 
+        create_plot(plot_name='test plot 1', days=0)
+        create_plot(plot_name='test plot 2', days=0)
 
     def test_string_representation(self):
         """ String representation of Plots are the same as plot_name. """
-        test_plot = Plot.objects.get(plot_name='test_plot_1')
+        test_plot = Plot.objects.get(plot_name='test plot 1')
         self.assertEqual(str(test_plot), test_plot.plot_name)
 
     def test_was_created_today(self):
         """ Plots created today are correctly identified. """
-        test_plot_1 = Plot.objects.get(plot_name='test_plot_1')
-        test_plot_2 = Plot.objects.get(plot_name='test_plot_2')
+        test_plot_1 = Plot.objects.get(plot_name='test plot 1')
+        test_plot_2 = Plot.objects.get(plot_name='test plot 2')
         self.assertTrue(Plot.was_created_today(test_plot_1))
         self.assertTrue(Plot.was_created_today(test_plot_1))
 
