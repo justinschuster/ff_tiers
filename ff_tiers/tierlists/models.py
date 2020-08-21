@@ -52,3 +52,7 @@ class Plot(models.Model):
     def get_position(self):
         """ Returns the position of a plot. """
         return self.position
+
+    def get_scoring_format(self):
+        """ Returns the scoring format of a plot. """
+        return self.scoring_format
