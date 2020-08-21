@@ -1,6 +1,6 @@
-{% load static %}
+{% extends "tierlists/base.html" %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'tierlists/style.css' %}">
+{% block content %}
 
 {% if latest_plot_list %}
 	<ul>
@@ -11,3 +11,5 @@
 {% else %}
 	<p>No plots are available</p>
 {% endif %}
+
+{% endblock %}
