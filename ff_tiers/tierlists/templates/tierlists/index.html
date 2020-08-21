@@ -1,3 +1,7 @@
+{% extends "tierlists/base.html" %}
+
+{% block content %}
+
 {% if latest_plot_list %}
 	<ul>
 	{% for plot in latest_plot_list %}
@@ -7,3 +11,5 @@
 {% else %}
 	<p>No plots are available</p>
 {% endif %}
+
+{% endblock %}
