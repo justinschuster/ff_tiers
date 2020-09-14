@@ -7,7 +7,7 @@ from django.utils import timezone
 from .models import Plot
 
 class IndexView(generic.ListView):
-    template_name = 'index.html'
+    template_name = 'tierlists/index.html'
     context_object_name = 'latest_plot_list'
 
     def get_queryset(self):
@@ -18,4 +18,4 @@ class IndexView(generic.ListView):
 
 class PlotView(generic.DetailView):
     model = Plot
-    template_name = 'plot.html'
+    template_name = 'tierlists/plot.html'
