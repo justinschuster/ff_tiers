@@ -16,7 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from . import views
+
 urlpatterns = [
+    path('', views.index, name=''),
     path('tierlists/', include('tierlists.urls', namespace='tierlists')),
     path('admin/', admin.site.urls),
 ]

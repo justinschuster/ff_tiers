@@ -1,15 +1,45 @@
 {% extends "tierlists/base.html" %}
 
 {% block content %}
-
-{% if latest_plot_list %}
-	<ul>
-	{% for plot in latest_plot_list %}
-	<li><a href="{% url 'tierlists:plot' pk=plot.id %}">{{ plot.plot_name }}</a></li>
-	{% endfor %}
-	</ul>
-{% else %}
-	<p>No plots are available</p>
-{% endif %}
+	<div class="container">
+		<div class="row">
+			<div class="col-sm">
+				<p>Standard</p>
+				{% if latest_plot_list %}
+					<ul class="list-group">
+					{% for plot in latest_plot_list %}
+						{% if plot.scoring_format == 'STND' %}
+							<li class="list-group-item"><a href="{% url 'tierlists:plot' pk=plot.id %}">{{ plot.position }}</a></li>
+						{% endif %}
+					{% endfor %}
+					</ul>
+				{% endif %}	
+			</div>
+			<div class="col-sm">
+				<p>PPR</p>
+				{% if latest_plot_list %}
+					<ul class="list-group">
+					{% for plot in latest_plot_list %}
+						{% if plot.scoring_format == 'FPPR' %}
+							<li class="list-group-item"><a href="{% url 'tierlists:plot' pk=plot.id %}">{{ plot.position }}</a></li>
+						{% endif %}
+					{% endfor %}
+					</ul>
+				{% endif %}
+			</div>
+			<div class="col-sm">
+				<p>Half PPR</p>
+				{% if latest_plot_list %}
+					<ul class="list-group">
+					{% for plot in latest_plot_list %}
+						{% if plot.scoring_format == 'HPPR' %}
+							<li class="list-group-item"><a href="{% url 'tierlists:plot' pk=plot.id %}">{{ plot.position }}</a></li>
+						{% endif %}
+					{% endfor %}
+					</ul>
+				{% endif %}
+			</div>
+		</div>
+	</div>
 
 {% endblock %}
