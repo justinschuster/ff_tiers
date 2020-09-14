@@ -6,10 +6,10 @@
 			<div class="col-sm">
 				<p>Standard</p>
 				{% if latest_plot_list %}
-					<ul>
+					<ul class="list-group">
 					{% for plot in latest_plot_list %}
 						{% if plot.scoring_format == 'STND' %}
-							<li><a href="{% url 'tierlists:plot' pk=plot.id %}">{{ plot.position }}</a></li>
+							<li class="list-group-item"><a href="{% url 'tierlists:plot' pk=plot.id %}">{{ plot.position }}</a></li>
 						{% endif %}
 					{% endfor %}
 					</ul>
@@ -18,10 +18,10 @@
 			<div class="col-sm">
 				<p>PPR</p>
 				{% if latest_plot_list %}
-					<ul>
+					<ul class="list-group">
 					{% for plot in latest_plot_list %}
 						{% if plot.scoring_format == 'FPPR' %}
-							<li><a href="{% url 'tierlists:plot' pk=plot.id %}">{{ plot.position }}</a></li>
+							<li class="list-group-item"><a href="{% url 'tierlists:plot' pk=plot.id %}">{{ plot.position }}</a></li>
 						{% endif %}
 					{% endfor %}
 					</ul>
@@ -30,10 +30,10 @@
 			<div class="col-sm">
 				<p>Half PPR</p>
 				{% if latest_plot_list %}
-					<ul>
+					<ul class="list-group">
 					{% for plot in latest_plot_list %}
 						{% if plot.scoring_format == 'HPPR' %}
-							<li><a href="{% url 'tierlists:plot' pk=plot.id %}">{{ plot.position }}</a></li>
+							<li class="list-group-item"><a href="{% url 'tierlists:plot' pk=plot.id %}">{{ plot.position }}</a></li>
 						{% endif %}
 					{% endfor %}
 					</ul>
