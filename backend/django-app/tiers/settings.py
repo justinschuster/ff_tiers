@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'cluster',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -119,3 +120,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+RANKINGS_URLS = [
+    'https://www.fantasypros.com/nfl/rankings/consensus-cheatsheets.php?export=xls',
+    'https://www.fantasypros.com/nfl/rankings/ppr-cheatsheets.php?export=xls',
+    'https://www.fantasypros.com/nfl/rankings/half-point-ppr-cheatsheets.php?export=xls',
+]
+
+FP_USER = 'schujustin1'
+
+FP_PWD = 'justin1'
