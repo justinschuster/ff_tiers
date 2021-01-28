@@ -15,6 +15,8 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
+RANKINGS_DIR = str(BASE_DIR) + '/cluster/download/'
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -122,9 +124,12 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 RANKINGS_URLS = [
-    'https://www.fantasypros.com/nfl/rankings/consensus-cheatsheets.php?export=xls',
-    'https://www.fantasypros.com/nfl/rankings/ppr-cheatsheets.php?export=xls',
-    'https://www.fantasypros.com/nfl/rankings/half-point-ppr-cheatsheets.php?export=xls',
+    'https://www.fantasypros.com/nfl/rankings/consensus-cheatsheets.php?print=true&show=ranks',
+    'https://www.fantasypros.com/nfl/rankings/ppr-cheatsheets.php?print=true&show=ranks',
+    'https://www.fantasypros.com/nfl/rankings/half-point-ppr-cheatsheets.php?print=true&show=ranks',
+]
+
+RANKINGS_FILES = [ 
 ]
 
 FP_USER = 'schujustin1'

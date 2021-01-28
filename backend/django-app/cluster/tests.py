@@ -1,10 +1,10 @@
 import os
 from .rankings import GetRankings 
 from django.test import TestCase
+from django.conf import settings
 
 class RankingsTestCase(TestCase):
     def test_rankings_file_save(self):
-        test_dir = '/home/justin/ff_tiers/backend/django-app/cluster/download/'
         file_names = [
             'consensus.html',
             'ppr.html',
@@ -13,4 +13,4 @@ class RankingsTestCase(TestCase):
 
         GetRankings.download()
         for name in file_names:
-            self.assertIn(name, os.listdir(test_dir))
+            self.assertIn(name, os.listdir(settings.RANKINGS_DIR))

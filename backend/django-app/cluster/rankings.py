@@ -8,7 +8,9 @@ class GetRankings():
     def download():
         for url in settings.RANKINGS_URLS:
             resp = requests.get(url, auth=(settings.FP_USER, settings.FP_PWD))
-            test_dir = '/home/justin/ff_tiers/backend/django-app/cluster/download/'
             file_name = url.split('/')[5].split('-')[0]
-            with open(f'{test_dir}{file_name}.html', 'wb') as curr_file:
+            with open(f'{settings.RANKINGS_DIR}{file_name}.html', 'wb') as curr_file:
                 curr_file.write(resp.content)
+
+    def get_player_data():
+        pass
