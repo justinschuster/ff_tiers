@@ -123,11 +123,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-RANKINGS_URLS = [
-    'https://www.fantasypros.com/nfl/rankings/consensus-cheatsheets.php?print=true&show=ranks',
-    'https://www.fantasypros.com/nfl/rankings/ppr-cheatsheets.php?print=true&show=ranks',
-    'https://www.fantasypros.com/nfl/rankings/half-point-ppr-cheatsheets.php?print=true&show=ranks',
-]
-
-RANKINGS_FILES = [ 
+PLAYER_POSITIONS = [
+    'QB',
+    'RB',
+    'WR',
+    'TE',
 ]
