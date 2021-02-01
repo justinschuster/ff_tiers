@@ -12,7 +12,7 @@ class Rankings():
     def update_player_data():
         """ Updates database with new player data. """
         for position in settings.PLAYER_POSITIONS:
-            data = Rankings.player_data_from_csv(position)  
+            data = Rankings.player_data_from_csv(position)
             if data is None:
                 continue
             for ind in data.index:
@@ -21,9 +21,9 @@ class Rankings():
     @staticmethod
     def player_data_from_csv(pos):
         """ Loads data from csv's to Player model """
-        file_path = f'{settings.RANKINGS_DIR}FantasyPros_2021_Draft_{pos}_Rankings.csv' 
+        file_path = f'{settings.RANKINGS_DIR}FantasyPros_2021_Draft_{pos}_Rankings.csv'
         try:
-            data = pd.read_csv(file_path) 
+            data = pd.read_csv(file_path)
             return data
         except FileNotFoundError:
             print(f'Unable to find file at {file_path}')
@@ -32,7 +32,7 @@ class Rankings():
 
     @staticmethod
     def save_player(player_data, pos):
-        """ Saves player information to database. 
+        """ Saves player information to database.
         TODO: add check to see if the players is already in db
         """
         p = Player(
@@ -40,6 +40,7 @@ class Rankings():
             consensus_ranking = player_data['RK'],
             player_name = player_data['PLAYER NAME'],
             team_name_abbrev = player_data['TEAM'],
+            position = pos,
             best_ranking = player_data['BEST'],
             worst_ranking = player_data['WORST'],
             average_ranking = player_data['AVG.'],
