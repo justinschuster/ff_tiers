@@ -15,7 +15,7 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
-RANKINGS_DIR = str(BASE_DIR) + '/cluster/download/'
+RANKINGS_DIR = str(BASE_DIR) + '/cluster/rankings/'
 
 
 # Quick-start development settings - unsuitable for production
@@ -131,7 +131,3 @@ RANKINGS_URLS = [
 
 RANKINGS_FILES = [ 
 ]
-
-FP_USER = 'schujustin1'
-
-FP_PWD = 'justin1'
