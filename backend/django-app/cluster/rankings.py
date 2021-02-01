@@ -7,7 +7,7 @@ from .models import Player
 
 class Rankings():
     """ For retrieving and saving player ranking data. """
-    
+
     @staticmethod
     def update_player_data():
         """ Updates database with new player data. """
@@ -35,7 +35,7 @@ class Rankings():
         """ Saves player information to database.
         TODO: add check to see if the players is already in db
         """
-        p = Player(
+        player = Player(
             scoring = 'STD',
             consensus_ranking = player_data['RK'],
             player_name = player_data['PLAYER NAME'],
@@ -46,4 +46,5 @@ class Rankings():
             average_ranking = player_data['AVG.'],
             ranking_std = player_data['STD.DEV']
         )
-        p.save()
+        player.save()
+
