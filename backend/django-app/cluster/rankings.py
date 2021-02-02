@@ -26,9 +26,7 @@ class Rankings():
             data = pd.read_csv(file_path)
             return data
         except FileNotFoundError:
-            print(f'Unable to find file at {file_path}')
-            print(f'Could not retrieve {pos} data from file.')
-            return None
+           return None
 
     @staticmethod
     def save_player(player_data, pos):
