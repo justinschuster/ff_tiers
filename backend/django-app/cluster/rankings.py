@@ -31,18 +31,36 @@ class RankingsData():
     @staticmethod
     def save_player(player_data, pos):
         """ Saves player information to database.
-        TODO: add check to see if the players is already in db
+        TODO: Multiple scoring formats 
         """
-        player = Player(
-            scoring = 'STD',
-            consensus_ranking = player_data['RK'],
-            player_name = player_data['PLAYER NAME'],
-            team_name_abbrev = player_data['TEAM'],
-            position = pos,
-            best_ranking = player_data['BEST'],
-            worst_ranking = player_data['WORST'],
-            average_ranking = player_data['AVG.'],
-            ranking_std = player_data['STD.DEV']
-        )
+        player = RankingsData.safe_get(player_data['PLAYER NAME'])
+        if player is None:
+            player = Player(
+                scoring = 'STD',
+                consensus_ranking = player_data['RK'],
+                player_name = player_data['PLAYER NAME'],
+                team_name_abbrev = player_data['TEAM'],
+                position = pos,
+                best_ranking = player_data['BEST'],
+                worst_ranking = player_data['WORST'],
+                average_ranking = player_data['AVG.'],
+                ranking_std = player_data['STD.DEV']
+            )
+        else:
+            player.best_ranking = player_data['BEST']
+            player.worst_ranking = player_data['WORST']
+            player.average_ranking = player_data['AVG.']
+            player.ranking_std = player_data['STD.DEV']
         player.save()
 
+    @staticmethod
+    def safe_get(name):
+        """
+        Wrapper for Django Model.objects.get()
+        Handles DoesNotExist exception
+        """
+        try:
+            player = Player.objects.get(player_name=name)
+        except Player.DoesNotExist:
+            player = None
+        return player

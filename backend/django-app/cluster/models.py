@@ -7,7 +7,7 @@ class Player(models.Model):
     PositionType = models.TextChoices('PositionType', 'QB RB WR TE K')
     scoring = models.TextField(choices=ScoringType.choices, null=True)
     consensus_ranking = models.IntegerField()
-    player_name = models.TextField(unique=True)
+    player_name = models.TextField()
     team_name_abbrev = models.CharField(max_length=10)
     position = models.TextField(choices=PositionType.choices)
     best_ranking = models.IntegerField()
