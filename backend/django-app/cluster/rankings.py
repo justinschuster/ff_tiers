@@ -5,18 +5,18 @@ import pandas as pd
 from django.conf import settings
 from .models import Player
 
-class Rankings():
+class RankingsData():
     """ For retrieving and saving player ranking data. """
 
     @staticmethod
     def update_player_data():
         """ Updates database with new player data. """
         for position in settings.PLAYER_POSITIONS:
-            data = Rankings.player_data_from_csv(position)
+            data = RankingsData.player_data_from_csv(position)
             if data is None:
                 continue
             for ind in data.index:
-                Rankings.save_player(data.iloc[ind], position)
+                RankingsData.save_player(data.iloc[ind], position)
 
     @staticmethod
     def player_data_from_csv(pos):
