@@ -1,6 +1,5 @@
 """ Contains all data extraction and manipution. """
 
-import requests
 import pandas as pd
 from django.conf import settings
 from .models import Player
@@ -26,17 +25,17 @@ class RankingsData():
             data = pd.read_csv(file_path)
             return data
         except FileNotFoundError:
-           return None
+            return None
 
     @staticmethod
     def save_player(player_data, pos):
         """ Saves player information to database.
-        TODO: Multiple scoring formats 
+        TODO: Multiple scoring formats
         """
         player = RankingsData.safe_get(player_data['PLAYER NAME'])
         if player is None:
             player = Player(
-                scoring = 'STD',
+                scoring = 'STD', # Only standard rankings right now
                 consensus_ranking = player_data['RK'],
                 player_name = player_data['PLAYER NAME'],
                 team_name_abbrev = player_data['TEAM'],
