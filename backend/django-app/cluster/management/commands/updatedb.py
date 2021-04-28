@@ -6,3 +6,4 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         RankingsData.update_player_data()
+        print("Player data successfully updated.")
