@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'tiers.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'djongo',
+        'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'tiers-db',
     }
 }
