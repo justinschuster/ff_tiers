@@ -1,6 +1,6 @@
 *.pyc
 .env
-env/
+ffenv/
 __pycache__
 *.log
 migrations/
