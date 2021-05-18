@@ -13,7 +13,7 @@ class Player(models.Model):
     best_ranking = models.IntegerField()
     worst_ranking = models.IntegerField()
     average_ranking = models.IntegerField()
-    ranking_std = models.IntegerField()
+    ranking_std = models.IntegerField() 
 
     def __str__(self):
         """ Returns player_name. """

@@ -6,7 +6,7 @@ from .models import Player
 
 class RankingsData():
     """ For retrieving and saving player ranking data. """
-
+    
     @staticmethod
     def update_player_data():
         """ Updates database with new player data. """
